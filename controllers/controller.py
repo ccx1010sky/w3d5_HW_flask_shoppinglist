@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect
 from app import app
 from models.item import *
-from models.items import items,add_new_item
+from models.items import items,add_new_item,delete_item
 
 
 @app.route('/items')
@@ -24,4 +24,7 @@ def add_item():
     # return render_template("index.html",title = "Shoping List Items", items=items)
     return redirect('/items')
 
-    
+@app.route('/items/delete/<name_of_item>', methods=['POST'])
+def delete(name_of_item):
+  delete_item(name_of_item)
+  return redirect('/items')

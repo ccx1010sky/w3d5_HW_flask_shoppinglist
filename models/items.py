@@ -10,3 +10,11 @@ items = [item1,item2,item3]
 def add_new_item(item):
     items.append(item)
     
+def delete_item(name_of_item):
+    item_delete = None
+    for item in items:
+        if item.name_of_item == name_of_item:
+            item_delete= item
+            break
+
+    items.remove(item_delete)
