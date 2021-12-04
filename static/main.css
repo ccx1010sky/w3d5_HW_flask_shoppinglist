@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: blanchedalmond;
+}
+
+.main-nav li {
+  list-style: none;
+}
+
+.main-box {
+  padding-left: 50px;
+}
+  hr {
+    height: 5px;
+    width: auto;
+    background-color: gray;
+  }
+
+
+.item {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  background-color: #617093;
+  padding: 20px;
+  margin: 30px;
+}
+
+#Additem {
+  border-radius: 20%;
+
+  
+}

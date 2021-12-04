@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block content %}
+
+<header>
+  <nav class="main-nav">
+    <ul>
+      <li>
+        <a href="#">logo</a>
+      </li>
+      <li>
+        <a href="/home">Home</a>
+      </li>
+    </ul>
+  </nav>
+  <hr />
+</header>
+<main class="main-box">
+<h1>Add item !</h1>
+<form action="/items" method="post">
+  <label for="name_of_item">Name:&nbsp&nbsp&nbsp&nbsp</label>
+  <input type="text" name="name_of_item" id="name_of_item" />
+  <br /><br />
+  <label for="price">Price:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+  <input type="number" name="price" id="price" />
+  <br /><br />
+  <label for="quantity">quantity:&nbsp</label>
+  <input type="number" name="quantity" id="quantity" />
+  <br /><br />
+  <label for="Bought_status">Bought?</label>
+  <input type="checkbox" name="Bought_status" id="Bought_status" value="False" />
+  <br /><br />
+  <input type="submit" value="Add item" id = "Additem"/>
+</form>
+
+
+
+<section class="list">
+  {% for item in items %}
+  <div class="item">
+    <h3>item name: {{ item.name_of_item }}</h3>
+    <h3>item price: {{ item.price }}</h3>
+    <h3>quantity: {{ item.quantity }}</h3>
+    {% if item.Bought_status %}
+    <h3>Bought?: Yes</h3>
+    {% else: %}
+    <h3>Bought?: No</h3>
+    {% endif %}
+  </div>
+</section>
+{% endfor %} {% endblock %}
+
+</main>
