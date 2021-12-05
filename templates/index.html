@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+
+{% block content %}
 
 <header>
   <nav class="main-nav">
@@ -6,50 +8,82 @@
       <li>
         <a href="#">logo</a>
       </li>
+      <br>
       <li>
-        <a href="/home">Home</a>
+        <a href="/items">Home</a>
       </li>
     </ul>
   </nav>
   <hr />
 </header>
 <main class="main-box">
-<h1>Add item !</h1>
-<form action="/items" method="post">
-  <label for="name_of_item">Name:&nbsp&nbsp&nbsp&nbsp</label>
-  <input type="text" name="name_of_item" id="name_of_item" />
-  <br /><br />
-  <label for="price">Price:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-  <input type="number" name="price" id="price" />
-  <br /><br />
-  <label for="quantity">quantity:&nbsp</label>
-  <input type="number" name="quantity" id="quantity" />
-  <br /><br />
-  <label for="Bought_status">Bought?</label>
-  <input type="checkbox" name="Bought_status" id="Bought_status" value="False" />
-  <br /><br />
-  <input type="submit" value="Add item" id = "Additem"/>
-</form>
+  <section>
+  <h1>Add item !</h1>
+  <form action="/items" method="post">
+    <label for="name_of_item">Name:&nbsp&nbsp&nbsp&nbsp</label>
+    <input type="text" name="name_of_item" id="name_of_item" />
+    <br /><br />
+    <label for="price">Price:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+    <input type="number" step="0.01" name="price" value="0.00" id="price" />
+    <br /><br />
+    <label for="quantity">quantity:&nbsp</label>
+    <input type="number" name="quantity" value="1" id="quantity" />
+    <br /><br />
+    <label for="Bought_status">Bought?</label>
+    <input
+      type="checkbox"
+      name="Bought_status"
+      id="Bought_status"
+      value="False"
+    />
+    <br /><br />
+    <input type="submit" value="Add item" id="Additem" />
+  </form>
+  <hr>
+  {% block count %}
+     <h3>Total items: {{ items|length }} </h3> 
+    {% set count1 = namespace(value=0) %}
+    {% set count2 = namespace(value=0) %}
+    {% for item1 in items %}
+        {% if item1.Bought_status %}
+            {% set count1.value = count1.value + 1 %}
+        {% else %}
+            {% set count2.value = count2.value + 1 %}
+        {% endif %}
+    {% endfor %}
+    <h3>Count of Bought : {{ count1.value }}</h3>
+    <h3>Count of Unbought : {{ count2.value }}</h3>
+    <h3> Total value of all item:</h3>  
+    {% endblock count %}
+ 
 
+  </section>
 
+  <section class="list">
+    {% for item in items %}
+    <div class="item">
+      <h3>item name: {{ item.name_of_item }}</h3>
+      <h3>item price: £{{ item.price }}</h3>
+      <h3>quantity: {{ item.quantity }}</h3>
+      {% if item.Bought_status %}
+      <h3>Bought? Yes</h3>
+      {% else %}
+      <h3>Bought? No</h3>
+      {% endif %}
 
-<section class="list">
-  {% for item in items %}
-  <div class="item">
-    <h3>item name: {{ item.name_of_item }}</h3>
-    <h3>item price: {{ item.price }}</h3>
-    <h3>quantity: {{ item.quantity }}</h3>
-    {% if item.Bought_status %}
-    <h3>Bought?: Yes</h3>
-    {% else: %}
-    <h3>Bought?: No</h3>
-    {% endif %}
+      <form
+        class="form-inline"
+        action="/items/delete/{{ item.name_of_item }}"
+        method="POST"
+      >
+        <input type="submit" value="Delete" />
+      </form>
+    </div>
+  </section>
 
-    <form class="form-inline" action="/items/delete/{{ item.name_of_item }}" method="POST">
-            <input type="submit" value="Delete">
-          </form>
-  </div>
-</section>
-{% endfor %} {% endblock %}
+  {% endfor %}
 
+  <h2><a href="#">Back to the Top</a></h2>
 </main>
+
+{% endblock %}
