@@ -3,6 +3,11 @@ from app import app
 from models.item import *
 from models.items import items,add_new_item,delete_item
 
+@app.route('/')
+def ind():
+    return render_template("index.html",title = "Shoping List Items", items=items)
+
+
 
 @app.route('/items')
 def index():
